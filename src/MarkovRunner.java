@@ -51,18 +51,52 @@ public class MarkovRunner {
         System.out.println("\n----------------------------------");
     }
 
+    public void testHashMap() {
+        EfficientMarkovWord emw = new EfficientMarkovWord(2);
+        String test = "this is a test yes this is really a test yes a test this is wow";
+        runModel(emw, test, 50, 42);
+    }
+
+    public void compareMethods() {
+        FileResource fr = new FileResource();
+        String st = fr.asString();
+        st = st.replace('\n', ' ');
+
+        long start = System.currentTimeMillis();
+        System.out.println(start);
+        MarkovWord mw = new MarkovWord(2);
+        runModel(mw, st, 100, 42);
+        long end = System.currentTimeMillis();
+        System.out.println("Time : " + (end - start) / 1000F);
+
+        start = System.currentTimeMillis();
+        EfficientMarkovWord emw = new EfficientMarkovWord(2);
+        runModel(emw, st, 100, 42);
+        end = System.currentTimeMillis();
+        System.out.println("Time Efficient : " + (end - start) / 1000F);
+
+    }
+
     public static void main(String[] args) {
-        MarkovWordOne mw1 = new MarkovWordOne();
+        //MarkovWordOne mw1 = new MarkovWordOne();
         String s = "this is just a test yes this is a simple test";
-        //FileResource fr = new FileResource();
-        //String st = fr.asString();
-        //st = st.replace('\n', ' ');
+        FileResource fr = new FileResource();
+        String st = fr.asString();
+        st = st.replace('\n', ' ');
         MarkovRunner mr = new MarkovRunner();
         //mr.runModel(mw1, st, 120, 139);
         //mr.runMarkovTwo();
 
-        MarkovWordTwo mw2 = new MarkovWordTwo();
+        //MarkovWordTwo mw2 = new MarkovWordTwo();
         //mr.runModel(mw2, s, 120, 549);
+
+        //MarkovWord mWord = new MarkovWord(5);
+        //mr.runModel(mWord, st, 120, 844);
+
+        //mr.compareMethods();
+
+        EfficientMarkovWord emw = new EfficientMarkovWord(5);
+        mr.runModel(emw, st, 120, 531);
     }
 
 }
